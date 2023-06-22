@@ -1,0 +1,34 @@
+﻿<br />
+<div class="alert alert-info text-center">
+    <h3>Add Person To List</h3>
+    <hr />
+    <div class="text-center">
+        Name :
+        <input type="text" class="form-control" name="Name" id="Name" style="margin:auto" />
+        <br />
+        Family:
+        <input type="text" class="form-control" name="Family" id="Family" style="margin:auto" />
+        <br />
+        Age :
+        <input type="number" class="form-control" name="Age" id="Age" style="margin:auto" />
+        <br />
+        <button id="submit" class="btn btn-primary">افزودن</button>
+    </div>
+</div>
+
+<script>
+    $("#submit").click(function () {
+        var person = {
+            Name:$("#Name").val(),
+            Family:$("#Family").val(),
+            Age:$("#Age").val()
+        }
+        $.ajax({
+            url: "/api/peopleapi",
+            type: "post",
+            data: person
+        }).done(function () {
+            $("#view").load("/Home/list");
+        });
+    })
+</script>

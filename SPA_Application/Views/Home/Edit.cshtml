@@ -1,0 +1,43 @@
+﻿@model int
+<br />
+<div class="alert alert-info text-center">
+    <h3>Add Person To List</h3>
+    <hr />
+    <div class="text-center">
+        Name :
+        <input type="text" class="form-control" name="Name" id="Name" style="margin:auto" />
+        <br />
+        Family:
+        <input type="text" class="form-control" name="Family" id="Family" style="margin:auto" />
+        <br />
+        Age :
+        <input type="number" class="form-control" name="Age" id="Age" style="margin:auto" />
+        <br />
+        <button id="EditPerson" class="btn btn-primary">ویرایش</button>
+    </div>
+</div>
+
+<script>
+    $.getJSON("/Api/peopleApi/" +@Model, function (result) {
+        $("#Name").val(result.Name);
+        $("#Family").val(result.Family);
+        $("#Age").val(result.Age);
+    });
+
+    $("#EditPerson").click(function () {
+        var person = {
+            ID:@Model,
+            Name: $("#Name").val(),
+            Family: $("#Family").val(),
+            Age: $("#Age").val()
+        }
+        $.ajax({
+            url: "/api/peopleapi/"+@Model,
+            type: "put",
+            data: person
+        }).done(function () {
+            $("#view").load("/Home/list");
+        });
+    })
+
+</script>

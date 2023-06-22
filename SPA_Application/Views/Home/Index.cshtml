@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Manage Users</h2>
+
+<a class="btn btn-success" id="btnAdd">add Personal</a>
+
+<div id="view">
+    Please Wait ...
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#view").load("/Home/List");
+        });
+
+        $("#btnAdd").click(function () {
+            $("#view").load("/Home/AddPersonal");
+        })
+
+        function Delete(id) {
+            if (confirm("آیااز حذف این کاربر مطمئن هستید؟")) {
+                $.ajax({
+                    url: "/Api/PeopleApi/" + id,
+                    type: "delete",
+
+                }).done(function () {
+                    $("#group_" + id).addClass("danger");
+                    $("#group_" + id).hide("slow");
+                });
+            }
+        }
+
+        function Edit(id) {
+            $("#view").load("/Home/Edit/" + id);
+        }
+    </script>
+}

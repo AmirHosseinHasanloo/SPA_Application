@@ -1,0 +1,22 @@
+﻿<h3>Personal List</h3>
+<table class="table table-bordered table-hover" id="list">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Family</th>
+        <th>Age</th>
+        <th>Command</th>
+    </tr>
+</table>
+
+<script>
+    $.getJSON("/api/peopleapi", function (result) {
+        $.each(result, function (key, val) {
+            var item = "<tr id='group_" + val.ID + "'><td>" + val.ID + "</td><td>" + val.Name + "</td><td>" + val.Family + "</td><td>" + val.Age + "</td><td><a class='btn btn-warning' onClick='Edit(" + val.ID + ")'>ویرایش</a> | <a class='btn btn-danger' onClick='Delete(" + val.ID + ")'>حذف</a></tr>";
+            $("#list").append(item);
+        });
+    })
+
+
+
+</script>
